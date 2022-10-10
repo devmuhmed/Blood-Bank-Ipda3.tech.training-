@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-    // prevent using use in routes
+    // prevent repeating use in routes
     protected $namespace = 'App\Http\Controllers';
 
     /**

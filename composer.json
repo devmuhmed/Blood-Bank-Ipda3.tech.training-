@@ -28,6 +28,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "App/MHassan/helpers.php"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }
