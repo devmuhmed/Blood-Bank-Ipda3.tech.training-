@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//cause of folder Api that created in controllers used namespace api
+Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
+    Route::get('governorates','MainController@governorates');
+});
