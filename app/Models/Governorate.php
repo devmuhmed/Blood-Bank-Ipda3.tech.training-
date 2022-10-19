@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Governorate extends Model 
+class Governorate extends Model
 {
 
     protected $table = 'governorates';

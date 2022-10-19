@@ -6,6 +6,6 @@ function responseJson($status, $msg, $data){
         'msg' => $msg,
         'data' => $data
     ];
-    return request()->json($response);
+    return response()->json($response);
 }
-?>
+

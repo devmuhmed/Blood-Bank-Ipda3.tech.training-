@@ -20,11 +20,10 @@ class BloodType extends Model
     {
         return $this->belongsToMany('App\Models\Client');
     }
-    // todo list
-    // wanna notice about that
-    // public function clients()
-    // {
-    //     return $this->hasMany('App\Models\Client');
-    // }
+
+    public function clientsBloodType()
+    {
+        return $this->hasMany('App\Models\Client','blood_type_id');
+    }
 
 }
