@@ -11,7 +11,7 @@ class CreateClientsTable extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('email');
-			$table->bigInteger('phone');
+			$table->bigInteger('phone')->unique();
 			$table->string('name');
 			$table->date('d_o_b');
 			$table->date('last_donation_date');
@@ -19,8 +19,8 @@ class CreateClientsTable extends Migration {
 			$table->integer('blood_type_id')->unsigned();
 			$table->integer('city_id')->unsigned();
 			$table->string('password');
-			$table->string('api_token', 60);
-			$table->boolean('is_active');
+			$table->string('api_token', 60)->unique()->nullable();
+			$table->boolean('is_active')->default(1);
 		});
 	}
 

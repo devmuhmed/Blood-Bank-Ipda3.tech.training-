@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Client extends Model 
+class Client extends Model
 {
 
     protected $table = 'clients';
     public $timestamps = true;
-    protected $fillable = array('email', 'phone', 'name');
+    protected $fillable = array('email', 'phone', 'name', 'd_o_b', 'city_id', 'password','is_active','last_donation_date','pin_code','blood_type_id');
 
     public function city()
     {
@@ -45,5 +44,9 @@ class Client extends Model
     {
         return $this->belongsTo('App\Models\BloodType');
     }
+    protected $hidden = [
+        'password',
+        'api_token',
+    ];
 
 }
