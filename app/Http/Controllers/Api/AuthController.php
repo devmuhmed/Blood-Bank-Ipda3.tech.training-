@@ -53,7 +53,5 @@ class AuthController extends Controller
         }else{
             return responseJson(0,'there \'s a something wrong with your phone');
         }
-
-        //todo list login to bo continue
     }
 }

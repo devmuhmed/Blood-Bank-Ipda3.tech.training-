@@ -21,12 +21,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //cause of folder Api that created in controllers used namespace api
 Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
-    Route::get('governorates','MainController@governorates');
-    Route::get('cities','MainController@cities');
+    //AuthCycle
     Route::post('register','AuthController@register');
     Route::post('login','AuthController@login');
+    //General Api
+    Route::get('governorates','MainController@governorates');
+    Route::get('cities','MainController@cities');
+    Route::get('settings','MainController@settings');
+    Route::post('contact','MainController@contact');
+    Route::get('categories','MainController@categories');
+    Route::get('blood-types','MainController@bloodTypes');
+    //middleware auth
     Route::group(['middleware' => 'auth:api'],function(){
         Route::get('posts','MainController@posts');
-        Route::post('contact','MainController@contact');
+
     });
 });
