@@ -58,4 +58,5 @@ class MainController extends Controller
         $bloodTypes = BloodType::all();
         return responseJson(1,"success",$bloodTypes);
     }
+    
 }

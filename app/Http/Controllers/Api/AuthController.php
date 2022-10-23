@@ -92,4 +92,18 @@ class AuthController extends Controller
         $loginUser->update($request->all());
         return responseJson(1,'updated success',$loginUser);
     }
+    public function togglePostFavourites (Request $request){
+        $validator = validator($request->all(),[
+            'post_id' => 'required'
+        ]);
+        if($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        $toggle = $request->user()->posts()->toggle($request->post_id);
+        return responseJson(1,'post add to favourites',$toggle);
+    }
+    public function favouritesPosts(Request $request){
+        $favouritePosts = $request->user()->posts()->latest()->paginate(20);
+        return responseJson(1,'your favourites posts get successfully',$favouritePosts);
+    }
 }

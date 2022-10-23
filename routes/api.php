@@ -32,9 +32,12 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
     Route::post('contact','MainController@contact');
     Route::get('categories','MainController@categories');
     Route::get('blood-types','MainController@bloodTypes');
+
     //middleware auth
     Route::group(['middleware' => 'auth:api'],function(){
         Route::get('posts','MainController@posts');
         Route::put('profile','AuthController@profile');
+        Route::post('toggle-favourites','AuthController@togglePostFavourites');
+        Route::get('favourite-posts','AuthController@favouritesPosts');
     });
 });
