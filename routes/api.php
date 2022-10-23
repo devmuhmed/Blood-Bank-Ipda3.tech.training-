@@ -35,5 +35,6 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
     //middleware auth
     Route::group(['middleware' => 'auth:api'],function(){
         Route::get('posts','MainController@posts');
+        Route::put('profile','AuthController@profile');
     });
 });

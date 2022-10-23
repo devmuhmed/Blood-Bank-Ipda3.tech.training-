@@ -78,4 +78,18 @@ class AuthController extends Controller
             return responseJson(1,'something wrong happen try again');
         }
     }
+    public function profile(Request $request){
+        $validator = validator()->make($request->all(),[
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+        ]);
+        if($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        $request->merge(['password' => bcrypt($request->password)]);
+        $loginUser = $request->user();
+        $loginUser->update($request->all());
+        return responseJson(1,'updated success',$loginUser);
+    }
 }
