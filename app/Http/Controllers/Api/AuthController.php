@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPassword;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -52,6 +54,28 @@ class AuthController extends Controller
             }
         }else{
             return responseJson(0,'there \'s a something wrong with your phone');
+        }
+    }
+    public function resetPassword(Request $request){
+        $validator = validator()->make($request->all(),['phone' => 'required']);
+        if($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        $user = Client::where('phone',$request->phone)->first();
+        if($user){
+            $code = rand(1111,9999);
+            $update = $user->update(['pin_code' => $code]);
+            if($update){
+                //send mail
+                Mail::to($user->email)
+                ->bcc(env('mil'))
+                ->send(new ResetPassword($code));
+                return responseJson(1,'check your phone you should recieve code',['pin_code' => $code]);
+            }else{
+                return responseJson(1,'something wrong happen try again');
+            }
+        }else{
+            return responseJson(1,'something wrong happen try again');
         }
     }
 }

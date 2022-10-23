@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
     //AuthCycle
     Route::post('register','AuthController@register');
     Route::post('login','AuthController@login');
+    Route::post('reset-password','AuthController@resetPassword');
     //General Api
     Route::get('governorates','MainController@governorates');
     Route::get('cities','MainController@cities');
@@ -34,6 +35,5 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
     //middleware auth
     Route::group(['middleware' => 'auth:api'],function(){
         Route::get('posts','MainController@posts');
-
     });
 });
