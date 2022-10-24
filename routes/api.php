@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
     Route::post('register','AuthController@register');
     Route::post('login','AuthController@login');
     Route::post('reset-password','AuthController@resetPassword');
+    Route::post('new-password','AuthController@Password');
     //General Api
     Route::get('governorates','MainController@governorates');
     Route::get('cities','MainController@cities');

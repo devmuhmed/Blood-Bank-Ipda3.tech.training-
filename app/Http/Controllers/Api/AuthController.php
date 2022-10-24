@@ -78,6 +78,27 @@ class AuthController extends Controller
             return responseJson(1,'something wrong happen try again');
         }
     }
+    public function password (Request $request){
+        $validator = validator($request->all(),[
+            'pin_code' =>'required',
+            'password' =>'required|confirmed',
+        ]);
+        if ($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        $user = Client::where('pin_code',$request->pin_code)->where('pin_code','!=',0)->first();
+        if($user){
+            $user->password = bcrypt($request->password);
+            $user->pin_code = $request->pin_code;
+            if($user->save()){
+                return responseJson(1,'The password changing successfully',$user);
+            }else{
+                return responseJson(0,'Something wrong try again');
+            }
+        }else{
+            return responseJson(0,'The code isn\'t right');
+        }
+    }
     public function profile(Request $request){
         $validator = validator()->make($request->all(),[
             'email' => 'required',
@@ -88,11 +109,10 @@ class AuthController extends Controller
             return responseJson(0,$validator->errors()->first(),$validator->errors());
         }
         $loginUser = $request->user();
-        $loginUser->update($request->all());
         if($request->has('password')){
             $loginUser->password = bcrypt($request->password);
-            $loginUser->save();
         }
+        $loginUser->save();
         return responseJson(1,'updated success',$loginUser);
     }
     public function togglePostFavourites (Request $request){
