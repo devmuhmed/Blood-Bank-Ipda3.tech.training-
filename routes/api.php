@@ -38,6 +38,6 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
         Route::get('posts','MainController@posts');
         Route::put('profile','AuthController@profile');
         Route::post('toggle-favourites','AuthController@togglePostFavourites');
-        Route::get('favourite-posts','AuthController@favouritesPosts');
+        Route::get('favourite-posts','MainController@favouritesPosts');
     });
 });

@@ -87,9 +87,12 @@ class AuthController extends Controller
         if($validator->fails()){
             return responseJson(0,$validator->errors()->first(),$validator->errors());
         }
-        $request->merge(['password' => bcrypt($request->password)]);
         $loginUser = $request->user();
         $loginUser->update($request->all());
+        if($request->has('password')){
+            $loginUser->password = bcrypt($request->password);
+            $loginUser->save();
+        }
         return responseJson(1,'updated success',$loginUser);
     }
     public function togglePostFavourites (Request $request){
@@ -102,8 +105,5 @@ class AuthController extends Controller
         $toggle = $request->user()->posts()->toggle($request->post_id);
         return responseJson(1,'post add to favourites',$toggle);
     }
-    public function favouritesPosts(Request $request){
-        $favouritePosts = $request->user()->posts()->latest()->paginate(20);
-        return responseJson(1,'your favourites posts get successfully',$favouritePosts);
-    }
+
 }

@@ -43,7 +43,6 @@ class MainController extends Controller
             return responseJson(0,$validator->errors()->first(),$validator->errors());
         }
         $contact = Contact::create($request->all());
-        $contact->save();
         return responseJson(1,'message sending successfuly',$contact);
     }
     public function settings(){
@@ -58,5 +57,9 @@ class MainController extends Controller
         $bloodTypes = BloodType::all();
         return responseJson(1,"success",$bloodTypes);
     }
-    
+    public function favouritesPosts(Request $request){
+        $favouritePosts = $request->user()->posts()->latest()->paginate(20);
+        return responseJson(1,'your favourites posts get successfully',$favouritePosts);
+    }
+
 }
