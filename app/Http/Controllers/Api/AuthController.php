@@ -5,6 +5,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPassword;
 use App\Models\Client;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -116,7 +117,7 @@ class AuthController extends Controller
         return responseJson(1,'updated success',$loginUser);
     }
     public function togglePostFavourites (Request $request){
-        $validator = validator($request->all(),[
+        $validator = validator()->make($request->all(),[
             'post_id' => 'required'
         ]);
         if($validator->fails()){
@@ -125,5 +126,26 @@ class AuthController extends Controller
         $toggle = $request->user()->posts()->toggle($request->post_id);
         return responseJson(1,'post add to favourites',$toggle);
     }
-
+    public function registerToken (Request $request){
+        $validator = validator($request->all(),[
+            'token' =>'required',
+            'type' =>'required|in:android,ios'
+        ]);
+        if($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        Token::where('token',$request->token)->delete();
+        $request->user()->token()->create($request->all());
+        return responseJson(1,'register done successfully');
+    }
+    public function removeToken(Request $request){
+        $validator = validator()->make($request->all(),[
+            'token' => 'required',
+        ]);
+        if($validator->fails()){
+            return responseJson(0,$validator->errors()->first(),$validator->errors());
+        }
+        Token::where('token',$request->token)->delete;
+        return responseJson(1,'Token remove successfully');
+    }
 }

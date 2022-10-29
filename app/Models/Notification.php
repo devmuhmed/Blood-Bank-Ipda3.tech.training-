@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model 
+class Notification extends Model
 {
 
     protected $table = 'notifications';
@@ -13,6 +13,10 @@ class Notification extends Model
     public function clients()
     {
         return $this->belongsToMany('App\Models\Client');
+    }
+    public function donationRequests()
+    {
+        return $this->belongsTo('App\Models\DonationRequest');
     }
 
 }

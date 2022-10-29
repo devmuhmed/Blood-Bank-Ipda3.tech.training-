@@ -40,5 +40,6 @@ Route::group(['prefix' => 'v1','namespace' => 'Api'],function(){
         Route::put('profile','AuthController@profile');
         Route::post('toggle-favourites','AuthController@togglePostFavourites');
         Route::get('favourite-posts','MainController@favouritesPosts');
+        Route::post('donation-request','MainController@donationRequestCreate');
     });
 });

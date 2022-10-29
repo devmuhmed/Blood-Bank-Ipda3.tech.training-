@@ -35,14 +35,17 @@ class Client extends Model
         return $this->belongsToMany('App\Models\Governorate');
     }
 
-    public function bloodtypes()
+    public function bloodTypes()
     {
         return $this->belongsToMany('App\Models\BloodType');
     }
 
-    public function bloodtype()
+    public function bloodType()
     {
         return $this->belongsTo('App\Models\BloodType');
+    }
+    public function tokens(){
+        return $this->hasMany('App\Models\Token');
     }
     protected $hidden = [
         'password',
