@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('blank');
-});
+//Route::get('/', function () {
+//    return view('blank');
+//});
 Route::resource('governorate','GovernorateController');
+Route::resource('city','CityController');
+Route::resource('category','CategoryController');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

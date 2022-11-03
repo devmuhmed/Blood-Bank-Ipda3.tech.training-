@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
 @section('page_title') page_title @endsection
+@section('small_title') small_title @endsection
 @section('content')
     <section class="content">
         <div class="card">
